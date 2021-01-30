@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/vector"
-        android:layout_width="362dp"
-        android:layout_height="223dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="26dp"
         android:contentDescription="@string/image_error"
@@ -40,8 +40,7 @@
         android:id="@+id/TextView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="70dp"
+
         android:fontFamily="@font/poppins_regular"
         android:text="@string/get_started"
         android:textColor="@color/textColor"
@@ -49,16 +48,17 @@
         app:layout_constraintBottom_toBottomOf="@+id/vector"
         app:layout_constraintEnd_toEndOf="@+id/vector"
 
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.173"
         app:layout_constraintStart_toStartOf="@+id/vector"
         app:layout_constraintTop_toTopOf="@+id/vector"
-        app:layout_constraintVertical_bias="0.779" />
+        app:layout_constraintVertical_bias="0.781" />
 
     <ImageView
         android:id="@+id/secondRectangleImage"
-        android:layout_width="316dp"
-        android:layout_height="206dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/image_error"
+
 
         app:layout_constraintBottom_toBottomOf="@+id/backgroundRectangle"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,8 +72,8 @@
 
     <ImageView
         android:id="@+id/firstRectangleImage"
-        android:layout_width="0dp"
-        android:layout_height="206dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/image_error"
         app:layout_constraintBottom_toTopOf="@+id/secondRectangleImage"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +95,7 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/firstRectangleImage"
         app:layout_constraintEnd_toEndOf="@id/firstRectangleImage"
-        app:layout_constraintHorizontal_bias="0.275"
+        app:layout_constraintHorizontal_bias="0.098"
         app:layout_constraintStart_toStartOf="@+id/firstRectangleImage"
         app:layout_constraintTop_toTopOf="@+id/firstRectangleImage"
         app:layout_constraintVertical_bias="0.0" />
@@ -139,17 +139,17 @@
         android:id="@+id/TextView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:fontFamily="@font/poppins_regular"
         android:text="@string/new_room"
         android:textColor="@color/textColor"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/secondRectangleImage"
         app:layout_constraintEnd_toEndOf="@+id/secondRectangleImage"
-        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintHorizontal_bias="0.082"
         app:layout_constraintStart_toStartOf="@+id/secondRectangleImage"
         app:layout_constraintTop_toTopOf="@+id/secondRectangleImage"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintVertical_bias="0.094" />
 
     <TextView
         android:layout_width="281dp"
@@ -163,7 +163,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/TextView2"
         app:layout_constraintTop_toTopOf="@+id/secondRectangleImage"
-        app:layout_constraintVertical_bias="0.384" />
+        app:layout_constraintVertical_bias="0.318" />
 
     <Button
         android:id="@+id/createNewRoomButton"
