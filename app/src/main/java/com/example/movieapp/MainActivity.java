@@ -3,14 +3,34 @@ package com.example.movieapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.Toast;
+
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
 
 public class MainActivity extends AppCompatActivity {
+
+    Button createNewRoomButton;
+    EditText fourDigitCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast.makeText(MainActivity.this, "firebase connection successful",Toast.LENGTH_LONG).show();
+
+        createNewRoomButton = findViewById(R.id.createNewRoomButton);
+        createNewRoomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+
+
+>>>>>>> b23423addb75c1a050fff4210c72f447504d2b09
     }
+
+
+
 }
