@@ -10,8 +10,12 @@
     <string name="create">Create</string>
     <string name="have_a_room">Have a room?</string>
     <string name="get_started">Get Started</string>
-    <string name="enter_the_4_digit_code_obtained_from_the_room_owner">Enter the 4-digit code obtained <br></br> from the room owner.</string>
+    <string name="enter_the_4_digit_code_obtained_from_the_room_owner">Enter the 4-digit code obtained<br></br>from the room owner.</string>
     <string name="new_room">New Room</string>
     <string name="create_a_room_for_a_set_amount_of_people_and_become_the_room_owner">Create a room for a set amount of people and become the room owner.</string>
     <string name="enter_your_4_digit_pin_here">Enter Your 4-Digit Pin Here</string>
+    <string name="num_of_ppl">Number of People</string>
+    <string name="participants">participants</string>
+    <string name="preferences">Preferences</string>
+    <string name="filter_by_genre">Filter by genre</string>
 </resources>
