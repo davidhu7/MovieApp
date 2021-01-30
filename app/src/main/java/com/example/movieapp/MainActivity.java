@@ -2,6 +2,7 @@ package com.example.movieapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
@@ -23,12 +24,17 @@ public class MainActivity extends AppCompatActivity {
         createNewRoomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                startNewRoomActivity();
             }
         });
 
 
 
+    }
+
+    private void startNewRoomActivity() {
+        Intent intent = new Intent(this, NewRoomActivity.class);
+        startActivity(intent);
     }
 
 
