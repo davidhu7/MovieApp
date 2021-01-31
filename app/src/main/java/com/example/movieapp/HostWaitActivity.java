@@ -20,11 +20,15 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class HostWaitActivity extends AppCompatActivity {
     private TextView codeTv;
+    private TextView genreTv;
+    private TextView peopleTv;
+    private TextView inRoomTv;
     private Button startButton;
     private DocumentReference docRef;
     private FirebaseFirestore db;
     private int activeMembers;
     private int roomSize;
+    private int genreNum = 4;
     private String roomName;
 
     @Override
@@ -34,7 +38,25 @@ public class HostWaitActivity extends AppCompatActivity {
         Intent intent = getIntent();
         roomName = intent.getStringExtra(NewRoomActivity.PARTICIPANT_COUNT_TAG);
         codeTv = findViewById(R.id.codeTv);
+
+        //setting up the codeTV
+        String roomName1="";
+        for(int i =0; i<roomName.length()-1;i++){
+            roomName1+=roomName.charAt(i);
+            roomName1+=" ";
+        }
+        roomName1+=roomName.charAt(5);
+        roomName=roomName1;
         codeTv.setText(roomName);
+
+        //setting genre number
+        genreTv = findViewById(R.id.genreTv);
+        genreTv.setText(Integer.toString(genreNum));
+
+        peopleTv=findViewById(R.id.peopleTv);
+
+        inRoomTv=findViewById(R.id.inRoomTv);
+
         db = FirebaseFirestore.getInstance();
         startButton = findViewById(R.id.startButton);
         startButton.setActivated(false);
@@ -52,7 +74,11 @@ public class HostWaitActivity extends AppCompatActivity {
                 if (snapshot != null && snapshot.exists()) { //so we want to constantly be updating the number of activeMembers
                     try {
                         activeMembers = Integer.parseInt(snapshot.get("activeMembers").toString());
+                        peopleTv.setText(Integer.toString(activeMembers));
+
                         roomSize = Integer.parseInt(snapshot.get("roomSize").toString());
+                        inRoomTv.setText(Integer.toString(roomSize));
+                        Log.d("TAG", "active Members: " + activeMembers + " room Size: " + roomSize);
                     } catch (Exception ex) {
                         Log.e("ERROR", ex.toString());
                     }

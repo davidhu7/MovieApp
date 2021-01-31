@@ -108,6 +108,59 @@
         app:layout_constraintTop_toTopOf="@+id/backgroundRectangle"
         app:layout_constraintVertical_bias="0.119" />
 
+    <TextView
+        android:id="@+id/genreTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="208dp"
+        android:autofillHints="none"
+        android:fontFamily="@font/poppins_regular"
+        android:paddingHorizontal="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/firstRectangleImage"
+        app:layout_constraintEnd_toEndOf="@+id/firstRectangleImage"
+        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintStart_toStartOf="@+id/firstRectangleImage"
+        tools:ignore="TextFields" />
+
+    <TextView
+        android:id="@+id/inRoomTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="208dp"
+        android:autofillHints="none"
+        android:background="@null"
+        android:fontFamily="@font/poppins_regular"
+        android:paddingHorizontal="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/firstRectangleImage"
+        app:layout_constraintEnd_toEndOf="@+id/firstRectangleImage"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/firstRectangleImage"
+        tools:ignore="TextFields" />
+
+    <TextView
+        android:id="@+id/peopleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="208dp"
+        android:autofillHints="none"
+        android:background="@null"
+        android:fontFamily="@font/poppins_regular"
+        android:paddingHorizontal="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/firstRectangleImage"
+        app:layout_constraintEnd_toEndOf="@+id/firstRectangleImage"
+        app:layout_constraintHorizontal_bias="0.853"
+        app:layout_constraintStart_toStartOf="@+id/firstRectangleImage"
+        tools:ignore="TextFields" />
+
     <ImageView
         android:id="@+id/line"
         android:layout_width="wrap_content"
@@ -162,9 +215,10 @@
         android:paddingHorizontal="10dp"
         android:textAlignment="center"
         android:textColor="@color/textColor"
-        android:textColorHint="@color/textColor"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/firstRectangleImage"
         app:layout_constraintEnd_toEndOf="@+id/firstRectangleImage"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/firstRectangleImage"
         tools:ignore="TextFields" />
 
