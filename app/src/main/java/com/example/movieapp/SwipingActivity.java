@@ -267,6 +267,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                             String urlO = url1.toString();
                             Glide.with(SwipingActivity.this).load(urlO).into(imageView);
                         }else{
+                            startEndActivity();
                             Toast.makeText(SwipingActivity.this,"Document does not exist",Toast.LENGTH_SHORT).show();
                         }
                     }
