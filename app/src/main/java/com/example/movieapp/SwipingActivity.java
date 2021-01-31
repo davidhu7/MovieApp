@@ -14,9 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,7 +32,6 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
     FirebaseFirestore db;
     private GestureDetector gestureDetector;
     ImageView imageView;
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private static int MIN_DISTANCE = 150;
     private float x1,x2,y1,y2;
     private TextView textViewData;
@@ -116,6 +115,9 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
         });
 
      */
+
+        imageView = findViewById(R.id.imgf);
+        Glide.with(this).load("gs://movieapp-5cf6a.appspot.com/Endgame.jpeg").into(imageView);
     }
 
 
