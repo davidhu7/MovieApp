@@ -13,12 +13,15 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.lang.reflect.Field;
+
 public class WaitingActivity extends AppCompatActivity {
 
     private DocumentReference docRef;
     private FirebaseFirestore db;
     private String roomName;
     private boolean isSwiping;
+    private int activeM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,8 @@ public class WaitingActivity extends AppCompatActivity {
                 if (snapshot != null && snapshot.exists()) { //so we want to constantly be updating the number of activeMembers
                     try {
                         Object b = snapshot.get("isSwiping");
+                        Object n = snapshot.get("activeMembers");
+                        activeM = Integer.parseInt(n.toString());
                         if(Boolean.parseBoolean(b.toString())) {
                             startSwipingActivity();
                         }
@@ -53,12 +58,14 @@ public class WaitingActivity extends AppCompatActivity {
                 }
             }
         });
+        docRef.update("activeMembers", activeM + 1); //increase the active member count by 1
         //
 
     }
 
     private void startSwipingActivity() {
         Intent intent = new Intent(this, SwipingActivity.class);
+        intent.putExtra(NewRoomActivity.ROOM_TAG, roomName);
         startActivity(intent);
     }
 }

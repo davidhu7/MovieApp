@@ -5,33 +5,28 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-import org.w3c.dom.DocumentType;
-import org.w3c.dom.Text;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SwipingActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
     FirebaseFirestore db;
@@ -46,6 +41,13 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
     private int counter = 0;
     //final DocumentReference docRef = db.collection("cities").document("SF");
     private DocumentReference docRef;
+    private DocumentReference roomRef;
+    private String roomName;
+    private int activeMembers;
+    private int roomSize;
+    private List<Integer> movieVoteCount;
+
+    public final static String WINNING_INDEX_TAG = "com.example.movieapp.WINNING_INDEX_TAG";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,55 +60,58 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
         description = findViewById(R.id.description);
         year = findViewById(R.id.year);
         imageView = findViewById(R.id.imgf);
+        movieVoteCount = new ArrayList<Integer>();
 
-        CollectionReference cities = db.collection("cities");
+        Intent intent = getIntent();
+        roomName = intent.getStringExtra(NewRoomActivity.ROOM_TAG); //getting room name from prev activity
 
-        Map<String, Object> data1 = new HashMap<>();
-        data1.put("name", "San Francisco");
-        data1.put("state", "CA");
-        data1.put("country", "USA");
-        data1.put("capital", false);
-        data1.put("population", 860000);
-        data1.put("regions", Arrays.asList("west_coast", "norcal"));
-        cities.document("SF").set(data1);
-
-        Map<String, Object> data2 = new HashMap<>();
-        data2.put("name", "Los Angeles");
-        data2.put("state", "CA");
-        data2.put("country", "USA");
-        data2.put("capital", false);
-        data2.put("population", 3900000);
-        data2.put("regions", Arrays.asList("west_coast", "socal"));
-        cities.document("LA").set(data2);
-
-        Map<String, Object> data3 = new HashMap<>();
-        data3.put("name", "Washington D.C.");
-        data3.put("state", null);
-        data3.put("country", "USA");
-        data3.put("capital", true);
-        data3.put("population", 680000);
-        data3.put("regions", Arrays.asList("east_coast"));
-        cities.document("DC").set(data3);
-
-        Map<String, Object> data4 = new HashMap<>();
-        data4.put("name", "Tokyo");
-        data4.put("state", null);
-        data4.put("country", "Japan");
-        data4.put("capital", true);
-        data4.put("population", 9000000);
-        data4.put("regions", Arrays.asList("kanto", "honshu"));
-        cities.document("TOK").set(data4);
-
-        Map<String, Object> data5 = new HashMap<>();
-        data5.put("name", "Beijing");
-        data5.put("state", null);
-        data5.put("country", "China");
-        data5.put("capital", true);
-        data5.put("population", 21500000);
-        data5.put("regions", Arrays.asList("jingjinji", "hebei"));
-        cities.document("BJ").set(data5);
 
         loadData();
+
+        roomRef = db.collection("rooms").document(roomName);
+        roomRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w("TAG", "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) { //so we want to constantly be updating the votes
+                    try {
+                        //check if any of the values in the array
+                        Object rSize = snapshot.get("roomSize");
+                        roomSize = Integer.parseInt(rSize.toString());
+                        movieVoteCount = (List<Integer>) snapshot.get("voteCountArray");
+                        if((boolean) snapshot.get("isEnded")) {
+                            //end activity
+                            db.collection("rooms").document(roomName)
+                                    .delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("TAG", "DocumentSnapshot successfully deleted!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w("TAG", "Error deleting document", e);
+                                        }
+                                    });
+                            startEndActivity();
+
+                        }
+                    } catch (Exception ex) {
+                        Log.e("ERROR", ex.toString());
+                    }
+
+                } else {
+                    Log.d("TAG", "Current data: null");
+                }
+            }
+        });
 
         /*
         docRef = db.collection("movies").document("movie0");
@@ -167,13 +172,23 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
 
                 if(Math.abs(valueX) > MIN_DISTANCE){
                     if(x2 > x1){
+                        movieVoteCount.set(counter, movieVoteCount.get(counter) + 1);
+                        if(movieVoteCount.get(counter) >= roomSize / 2) { //if the number of votes at the current movie counter becomes greater than half the room
+                            roomRef.update("isEnded", true); //the search for a movie ends
+                        }
+                        roomRef.update("voteCountArray", movieVoteCount.get(counter));
                         //Right swipe
                         //loadData();
+
                         counter++;
                         loadData();
+
                         Toast.makeText(this,"Right swipe", Toast.LENGTH_SHORT).show();
                     }
                     else{
+                        if(movieVoteCount.get(counter) >= roomSize / 2) { //if the number of votes at the current movie counter becomes greater than half the room
+                            roomRef.update("isEnded", true); //the search for a movie ends
+                        }
                         //Left swipe
                         counter++;
                         loadData();
@@ -183,6 +198,13 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
         }
 
         return super.onTouchEvent(event);
+    }
+
+    public void startEndActivity() {
+        Intent intent = new Intent(this, EndActivity.class);
+        intent.putExtra(WINNING_INDEX_TAG, counter);
+        startActivity(intent);
+        this.finish();
     }
 
 

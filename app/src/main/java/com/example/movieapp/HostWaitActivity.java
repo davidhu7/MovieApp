@@ -16,6 +16,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.Objects;
+
 public class HostWaitActivity extends AppCompatActivity {
     private TextView codeTv;
     private TextView genreTv;
@@ -57,7 +59,7 @@ public class HostWaitActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         startButton = findViewById(R.id.startButton);
-        startButton.setActivated(false);
+     //   startButton.setActivated(false);
 
         docRef = db.collection("rooms").document(roomName); //we're referencing the roomName in the rooms collection on firestore
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -72,16 +74,16 @@ public class HostWaitActivity extends AppCompatActivity {
                 if (snapshot != null && snapshot.exists()) { //so we want to constantly be updating the number of activeMembers
                     try {
                         activeMembers = Integer.parseInt(snapshot.get("activeMembers").toString());
-                        peopleTv.setText(Integer.toString(activeMembers));
+                        peopleTv.setText(Objects.requireNonNull(snapshot.get("activeMembers")).toString());
 
                         roomSize = Integer.parseInt(snapshot.get("roomSize").toString());
-                        inRoomTv.setText(Integer.toString(roomSize));
+                        inRoomTv.setText(Objects.requireNonNull(snapshot.get("roomSize")).toString());
                         Log.d("TAG", "active Members: " + activeMembers + " room Size: " + roomSize);
                     } catch (Exception ex) {
                         Log.e("ERROR", ex.toString());
                     }
                     if(activeMembers >= roomSize) { //constantly checking if the amount of active members reaches the room Size
-                        startButton.setActivated(true); //activate the start button
+                       // startButton.setActivated(true); //activate the start button
                     }
                 } else {
                     Log.d("TAG", "Current data: null");

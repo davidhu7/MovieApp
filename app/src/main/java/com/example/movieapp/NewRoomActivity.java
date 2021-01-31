@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,10 +13,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -26,6 +33,7 @@ public class NewRoomActivity extends AppCompatActivity {
     private String roomName;
     FirebaseFirestore db;
     CollectionReference rooms;
+    private int movieCount;
     public final static String ROOM_TAG = "com.example.movieapp.ROOM_TAG";
 
     @Override
@@ -37,6 +45,21 @@ public class NewRoomActivity extends AppCompatActivity {
         createButton.setActivated(false); //false by default
         db = FirebaseFirestore.getInstance();
         rooms = db.collection("rooms"); //we're creating documents in the "rooms" collection
+        db.collection("movies")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            movieCount = 0;
+                            for (DocumentSnapshot document : task.getResult()) {
+                                movieCount++;
+                            }
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
         numParticipants.addTextChangedListener(new TextWatcher() {
             @Override
@@ -89,10 +112,18 @@ public class NewRoomActivity extends AppCompatActivity {
     private void createNewRoomOnDatabase() {
         int code = new Random().nextInt(999999); //generate random 6-digit user room key
         roomName = String.valueOf(code); //transform into a string for use
+        List<Integer> voteCountArr = new ArrayList<Integer>();
+        for(int i = 0; i < movieCount; i++) {
+            voteCountArr.add(0);
+        }
         Map<String, Object> data = new HashMap<>(); //creating the data map
         data.put("roomSize", participantCount);
         data.put("activeMembers", 1);
         data.put("isSwiping", false); // the room will not be in swiping phase by default
+        data.put("voteCountArray", voteCountArr);
+        data.put("isEnded", false);
+
+
         //TODO: Implement the movies index into the room
         Log.d("TAG", "room name: " + roomName);
         rooms.document(roomName).set(data); //this puts the data onto the database
