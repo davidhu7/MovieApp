@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -25,6 +26,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import org.w3c.dom.DocumentType;
 import org.w3c.dom.Text;
 
 import java.util.Arrays;
@@ -180,8 +182,10 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
     }
 
     public void nextImage(){
-        String collection = "movies"+counter;
+        String collection = "movie"+counter;
         docRef = db.collection("movies").document(collection);
+        Task<DocumentSnapshot> ss = docRef.get();
+        DocumentSnapshot ds = ss.getResult(); //getting the document Reference snapshot
 
     }
 
