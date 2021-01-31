@@ -83,6 +83,7 @@ public class NewRoomActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HostWaitActivity.class);
         intent.putExtra(PARTICIPANT_COUNT_TAG, roomName);
         startActivity(intent); //go to waiting room
+        this.finish();
     }
 
     //this method creates all the data we need for a new room on FireStore. it also begins the next activity
@@ -91,7 +92,8 @@ public class NewRoomActivity extends AppCompatActivity {
         roomName = String.valueOf(code); //transform into a string for use
         Map<String, Object> data = new HashMap<>(); //creating the data map
         data.put("roomSize", participantCount);
-        data.put("activeMembers", 0);
+        data.put("activeMembers", 1);
+        data.put("isSwiping", false); // the room will not be in swiping phase by default
         //TODO: Implement the movies index into the room
         Log.d("TAG", "room name: " + roomName);
         rooms.document(roomName).set(data); //this puts the data onto the database
