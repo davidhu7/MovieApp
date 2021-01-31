@@ -48,7 +48,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
 
         //Initialize database
         db = FirebaseFirestore.getInstance();
-        textViewData.findViewById(R.id.text_view_data);
+        textViewData = findViewById(R.id.text_view_data);
 
         CollectionReference cities = db.collection("cities");
 
