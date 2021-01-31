@@ -124,7 +124,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
         });
 
         imageView = findViewById(R.id.imgf);
-        Glide.with(this).load("gs://movieapp-5cf6a.appspot.com/Endgame.jpeg").into(imageView);
+        Glide.with(this).load("https://firebasestorage.googleapis.com/v0/b/movieapp-5cf6a.appspot.com/o/Endgame.jpeg?alt=media&token=1edd8184-d583-4cdb-8d8c-7115607e446e").into(imageView);
     }
 
 
