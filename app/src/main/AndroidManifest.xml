@@ -9,11 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EndActivity"></activity>
+        <activity android:name=".BackupEndActivity"></activity>
+        <activity android:name=".EndActivity" />
         <activity android:name=".NewRoomActivity" />
         <activity android:name=".SwipingActivity" />
-        <activity android:name=".HostWaitActivity"/>
-        <activity android:name=".WaitingActivity"/>
+        <activity android:name=".HostWaitActivity" />
+        <activity android:name=".WaitingActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
