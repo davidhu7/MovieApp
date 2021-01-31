@@ -112,6 +112,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
 
                         roomSize = Integer.parseInt(rSize.toString());
                         //movieVoteCount = fromStringToArray(voteCarr.toString());
+                        //TODO: Try counting all the votes at the end instead of live
                         movieVoteCount = (List<Long>) snapshot.get("voteCountArray");
                         if ((boolean) snapshot.get("isEnded")) {
                             //end activity
@@ -211,12 +212,12 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                 Log.d("TAG", movieVoteCount.toString());
                 if (Math.abs(valueX) > MIN_DISTANCE) {
                     if (x2 > x1) {
-                        movieVoteCount.set(counter, movieVoteCount.get(counter) + 1);
-                        if (movieVoteCount.get(counter) > roomSize / 2) { //if the number of votes at the current movie counter becomes greater than half the room
-                            startEndActivity();
-                            roomRef.update("isEnded", true); //the search for a movie ends
-
-                        }
+//                        movieVoteCount.set(counter, movieVoteCount.get(counter) + 1);
+//                        if (movieVoteCount.get(counter) > roomSize / 2) { //if the number of votes at the current movie counter becomes greater than half the room
+//                            startEndActivity();
+//                            roomRef.update("isEnded", true); //the search for a movie ends
+//
+//                        }
                         roomRef.update("voteCountArray", movieVoteCount);
                         //Right swipe
 
@@ -275,7 +276,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                             String urlO = url1.toString();
                             Glide.with(SwipingActivity.this).load(urlO).into(imageView);
                         } else {
-                            //startEndActivity();
+                            startBackupEndActivity();
                             Toast.makeText(SwipingActivity.this, "Document does not exist", Toast.LENGTH_SHORT).show();
                         }
                     }
