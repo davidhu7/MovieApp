@@ -201,8 +201,8 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                             String descriptionO = description1.toString();
                             String titleO = title1.toString();
                             String yearO = year1.toString();
-                            title.setText("Synopsis: " + descriptionO);
-                            description.setText(titleO);
+                            title.setText(titleO);
+                            description.setText("Synopsis: " + descriptionO);
                             year.setText("Year: " + yearO);
                             Object url1 = documentSnapshot.get("Image");
                             String urlO = url1.toString();
