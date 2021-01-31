@@ -106,7 +106,9 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
         data5.put("regions", Arrays.asList("jingjinji", "hebei"));
         cities.document("BJ").set(data5);
 
+        loadData();
 
+        /*
         docRef = db.collection("movies").document("movie0");
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -136,6 +138,8 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                 }
             }
         });
+
+         */
         //Glide.with(this).load("https://firebasestorage.googleapis.com/v0/b/movieapp-5cf6a.appspot.com/o/Endgame.jpeg?alt=media&token=1edd8184-d583-4cdb-8d8c-7115607e446e").into(imageView);
     }
 
@@ -166,13 +170,13 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                         //Right swipe
                         //loadData();
                         counter++;
-                        nextImage();
+                        loadData();
                         Toast.makeText(this,"Right swipe", Toast.LENGTH_SHORT).show();
                     }
                     else{
                         //Left swipe
                         counter++;
-                        nextImage();
+                        loadData();
                         Toast.makeText(this,"Left swipe", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -181,35 +185,40 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
         return super.onTouchEvent(event);
     }
 
-    public void nextImage(){
+
+    public void loadData(){
         String collection = "movie"+counter;
         docRef = db.collection("movies").document(collection);
-        Task<DocumentSnapshot> ss = docRef.get();
-        DocumentSnapshot ds = ss.getResult(); //getting the document Reference snapshot
+        docRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if(documentSnapshot.exists()){
+                            Object description1 = documentSnapshot.get("Description");
+                            Object title1 = documentSnapshot.get("Title");
+                            Object year1 = documentSnapshot.get("Year");
+                            String descriptionO = description1.toString();
+                            String titleO = title1.toString();
+                            String yearO = year1.toString();
+                            title.setText("Synopsis: " + descriptionO);
+                            description.setText(titleO);
+                            year.setText("Year: " + yearO);
+                            Object url1 = documentSnapshot.get("Image");
+                            String urlO = url1.toString();
+                            Glide.with(SwipingActivity.this).load(urlO).into(imageView);
+                        }else{
+                            Toast.makeText(SwipingActivity.this,"Document does not exist",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
 
+                  }
+               });
     }
-
-//    public void loadData(){
-//        docRef.get()
-//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                    @SuppressLint("SetTextI18n")
-//                    @Override
-//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                        if(documentSnapshot.exists()){
-//                            //String title = documentSnapshot.getString("country");
-//                            //textViewData.setText("Country: " + title);
-//                        }else{
-//                            Toast.makeText(SwipingActivity.this,"Document does not exist",Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//
-//                    }
-//                });
-//    }
 
     @Override
     public boolean onDown(MotionEvent motionEvent) {
