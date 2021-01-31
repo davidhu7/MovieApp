@@ -25,6 +25,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import org.w3c.dom.Text;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +38,10 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private static int MIN_DISTANCE = 150;
     private float x1,x2,y1,y2;
-    private TextView textViewData;
+    private TextView title;
+    private TextView description;
+    private TextView year;
+    private int counter = 0;
     //final DocumentReference docRef = db.collection("cities").document("SF");
     private DocumentReference docRef;
     @Override
@@ -45,10 +50,12 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
         setContentView(R.layout.activity_swiping);
         //Initialize gestureDetector
         this.gestureDetector = new GestureDetector(SwipingActivity.this, this);
-
         //Initialize database
         db = FirebaseFirestore.getInstance();
-        textViewData = findViewById(R.id.text_view_data);
+        title = findViewById(R.id.title);
+        description = findViewById(R.id.description);
+        year = findViewById(R.id.year);
+        imageView = findViewById(R.id.imgf);
 
         CollectionReference cities = db.collection("cities");
 
@@ -98,7 +105,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
         cities.document("BJ").set(data5);
 
 
-        docRef = db.collection("cities").document("BJ");
+        docRef = db.collection("movies").document("movie0");
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot,
@@ -110,21 +117,24 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
 
                 if (snapshot != null && snapshot.exists()) {
                     Log.d("TAG", "Current data: " + snapshot.getData());
-                    Object s = snapshot.get("country");
-                    Object arr = snapshot.get("regions");
-                    Log.d("TAG", "this is arr.toString: " + arr.toString());
-                    Log.d("TAG", "this is s.tostring: " + s.toString());
-                    String text = s.toString();
-                    textViewData.setText(text);
-
+                    Object description1 = snapshot.get("Description");
+                    Object title1 = snapshot.get("Title");
+                    Object year1 = snapshot.get("Year");
+                    String descriptionO = description1.toString();
+                    String titleO = title1.toString();
+                    String yearO = year1.toString();
+                    title.setText("Synopsis: " + descriptionO);
+                    description.setText(titleO);
+                    year.setText("Year: " + yearO);
+                    Object url1 = snapshot.get("Image");
+                    String urlO = url1.toString();
+                    Glide.with(SwipingActivity.this).load(urlO).into(imageView);
                 } else {
                     Log.d("TAG", "Current data: null");
                 }
             }
         });
-
-        imageView = findViewById(R.id.imgf);
-        Glide.with(this).load("https://firebasestorage.googleapis.com/v0/b/movieapp-5cf6a.appspot.com/o/Endgame.jpeg?alt=media&token=1edd8184-d583-4cdb-8d8c-7115607e446e").into(imageView);
+        //Glide.with(this).load("https://firebasestorage.googleapis.com/v0/b/movieapp-5cf6a.appspot.com/o/Endgame.jpeg?alt=media&token=1edd8184-d583-4cdb-8d8c-7115607e446e").into(imageView);
     }
 
 
@@ -153,16 +163,26 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                     if(x2 > x1){
                         //Right swipe
                         //loadData();
+                        counter++;
+                        nextImage();
                         Toast.makeText(this,"Right swipe", Toast.LENGTH_SHORT).show();
                     }
                     else{
                         //Left swipe
+                        counter++;
+                        nextImage();
                         Toast.makeText(this,"Left swipe", Toast.LENGTH_SHORT).show();
                     }
                 }
         }
 
         return super.onTouchEvent(event);
+    }
+
+    public void nextImage(){
+        String collection = "movies"+counter;
+        docRef = db.collection("movies").document(collection);
+
     }
 
 //    public void loadData(){
