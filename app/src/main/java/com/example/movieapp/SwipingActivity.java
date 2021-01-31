@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,9 +37,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
     private static int MIN_DISTANCE = 150;
     private float x1,x2,y1,y2;
     private TextView textViewData;
-    private DocumentReference docRef;
-
-
+    final DocumentReference docRef = db.collection("cities").document("SF");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +48,6 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
 
         //Initialize database
         db = FirebaseFirestore.getInstance();
-        docRef = db.collection("cities").document("BJ");
-        textViewData = findViewById(R.id.text_view_data);
 
 
         CollectionReference cities = db.collection("cities");
@@ -126,7 +123,8 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
             }
         });
 
-
+        imageView = findViewById(R.id.imgf);
+        Glide.with(this).load("gs://movieapp-5cf6a.appspot.com/Endgame.jpeg").into(imageView);
     }
 
 
