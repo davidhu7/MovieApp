@@ -12,6 +12,8 @@
         <activity android:name=".EndActivity"></activity>
         <activity android:name=".NewRoomActivity" />
         <activity android:name=".SwipingActivity" />
+        <activity android:name=".HostWaitActivity"/>
+        <activity android:name=".WaitingActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

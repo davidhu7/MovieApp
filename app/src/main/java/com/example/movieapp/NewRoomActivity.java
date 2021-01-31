@@ -1,6 +1,7 @@
 package com.example.movieapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.versionedparcelable.ParcelImpl;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -78,11 +79,11 @@ public class NewRoomActivity extends AppCompatActivity {
     }
 
     //this should start the waiting activity for the host
-//    private void startWaitActivity() {
-//        Intent intent = new Intent(this, HostWaitActivity.class);
-//        intent.putExtra(PARTICIPANT_COUNT_TAG, roomName);
-//        startActivity(intent);
-//    }
+    private void startWaitActivity(String roomName) {
+        Intent intent = new Intent(this, HostWaitActivity.class);
+        intent.putExtra(PARTICIPANT_COUNT_TAG, roomName);
+        startActivity(intent); //go to waiting room
+    }
 
     //this method creates all the data we need for a new room on FireStore. it also begins the next activity
     private void createNewRoomOnDatabase() {
@@ -92,11 +93,9 @@ public class NewRoomActivity extends AppCompatActivity {
         data.put("roomSize", participantCount);
         data.put("activeMembers", 0);
         //TODO: Implement the movies index into the room
-        rooms.document(roomName).set(data); //this puts the data onto the database
         Log.d("TAG", "room name: " + roomName);
-        Intent intent = new Intent(this, HostWaitActivity.class);
-        intent.putExtra(PARTICIPANT_COUNT_TAG, roomName);
+        rooms.document(roomName).set(data); //this puts the data onto the database
+        startWaitActivity(roomName);
 
-        startActivity(intent); //go to waiting room
     }
 }

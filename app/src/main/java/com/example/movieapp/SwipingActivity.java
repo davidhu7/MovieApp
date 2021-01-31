@@ -37,7 +37,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
     private static int MIN_DISTANCE = 150;
     private float x1,x2,y1,y2;
     private TextView textViewData;
-    final DocumentReference docRef = db.collection("cities").document("SF");
+    private DocumentReference docRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,9 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
 
         //Initialize database
         db = FirebaseFirestore.getInstance();
+        docRef = db.collection("cities").document("BJ");
 
-
+        textViewData = findViewById(R.id.text_view_data);
         CollectionReference cities = db.collection("cities");
 
         Map<String, Object> data1 = new HashMap<>();
