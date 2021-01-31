@@ -20,7 +20,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -110,12 +112,15 @@ public class NewRoomActivity extends AppCompatActivity {
     private void createNewRoomOnDatabase() {
         int code = new Random().nextInt(999999); //generate random 6-digit user room key
         roomName = String.valueOf(code); //transform into a string for use
-        int[] voteCountArr = new int[movieCount];
+        List<Integer> voteCountArr = new ArrayList<Integer>();
+        for(int i = 0; i < movieCount; i++) {
+            voteCountArr.add(0);
+        }
         Map<String, Object> data = new HashMap<>(); //creating the data map
         data.put("roomSize", participantCount);
         data.put("activeMembers", 1);
         data.put("isSwiping", false); // the room will not be in swiping phase by default
-        data.put("voteCountArray", voteCountArr );
+        data.put("voteCountArray", voteCountArr);
         data.put("isEnded", false);
 
 
