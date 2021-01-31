@@ -110,11 +110,11 @@ public class NewRoomActivity extends AppCompatActivity {
 
     //this method creates all the data we need for a new room on FireStore. it also begins the next activity
     private void createNewRoomOnDatabase() {
-        int code = new Random().nextInt(999999); //generate random 6-digit user room key
+        int code = new Random().nextInt(900000) + 100000;; //generate random 6-digit user room key
         roomName = String.valueOf(code); //transform into a string for use
-        List<Integer> voteCountArr = new ArrayList<Integer>();
+        List<Long> voteCountArr = new ArrayList<>();
         for(int i = 0; i < movieCount; i++) {
-            voteCountArr.add(0);
+            voteCountArr.add(((long)0));
         }
         Map<String, Object> data = new HashMap<>(); //creating the data map
         data.put("roomSize", participantCount);
