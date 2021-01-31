@@ -21,6 +21,7 @@ public class WaitingActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private String roomName;
     private boolean isSwiping;
+    private int activeM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +45,9 @@ public class WaitingActivity extends AppCompatActivity {
                     try {
                         Object b = snapshot.get("isSwiping");
                         Object n = snapshot.get("activeMembers");
-                        int activeM = Integer.parseInt(n.toString());
+                        activeM = Integer.parseInt(n.toString());
                         if(Boolean.parseBoolean(b.toString())) {
                             startSwipingActivity();
-                            docRef.update("activeMembers", activeM + 1); //increase the active member count by 1
                         }
                     } catch (Exception ex) {
                         Log.e("ERROR", ex.toString());
@@ -58,6 +58,7 @@ public class WaitingActivity extends AppCompatActivity {
                 }
             }
         });
+        docRef.update("activeMembers", activeM + 1); //increase the active member count by 1
         //
 
     }
