@@ -18,4 +18,14 @@
     <string name="participants">participants</string>
     <string name="preferences">Preferences</string>
     <string name="filter_by_genre">Filter by genre</string>
+    <string name="in_room">In a room</string>
+    <string name="success_join">You have successfully <br></br>joined!</string>
+    <string name="please_wait">Please wait until the room owner begins.</string>
+    <string name="your_room">Your room</string>
+    <string name="genres_num">Genres</string>
+    <string name="in_room_num">In room</string>
+    <string name="ppl_set_num">People set</string>
+    <string name="code">Code:</string>
+    <string name="must_wait">Must wait for all participants to be inside <br></br>the room to start.</string>
+    <string name="start">Start</string>
 </resources>
