@@ -12,8 +12,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.SetOptions;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WaitingActivity extends AppCompatActivity {
 
@@ -60,8 +63,10 @@ public class WaitingActivity extends AppCompatActivity {
             }
         });
 
-        Log.d("WAITING", "new activeM: " + activeM);
-        docRef.update("activeMembers", activeM + 1); //increase the active member count by 1
+        Map<String, Object> data = new HashMap<>();
+        data.put("activeMembers", activeM + 1);
+        db.collection("rooms").document(roomName)
+                .set(data, SetOptions.merge()); //increase the active member count by 1
         //
 
     }
