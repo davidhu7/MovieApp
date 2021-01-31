@@ -28,4 +28,5 @@
     <string name="code">Code:</string>
     <string name="must_wait">Must wait for all participants to be inside <br></br>the room to start.</string>
     <string name="start">Start</string>
+    <string name="num_input_error">Make sure that the input is a number.</string>
 </resources>

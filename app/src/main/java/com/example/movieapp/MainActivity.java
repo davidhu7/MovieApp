@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startNewRoomActivity() {
-        Intent intent = new Intent(this, SwipingActivity.class);
+        Intent intent = new Intent(this, NewRoomActivity.class);
         startActivity(intent);
     }
 
