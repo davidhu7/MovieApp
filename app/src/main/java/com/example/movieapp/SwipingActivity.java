@@ -244,6 +244,10 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
         this.finish();
     }
 
+    public void startBackupEndActivity() {
+
+    }
+
 
     public void loadData(){
         String collection = "movie"+counter;
