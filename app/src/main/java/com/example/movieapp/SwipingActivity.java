@@ -83,7 +83,21 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                         movieVoteCount = (List<Integer>) snapshot.get("voteCountArray");
                         if((boolean) snapshot.get("isEnded")) {
                             //end activity
-
+                            db.collection("rooms").document(roomName)
+                                    .delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("TAG", "DocumentSnapshot successfully deleted!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w("TAG", "Error deleting document", e);
+                                        }
+                                    });
+                            startEndActivity();
 
                         }
                     } catch (Exception ex) {
