@@ -32,7 +32,9 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
     private static int MIN_DISTANCE = 150;
     private float x1,x2,y1,y2;
     private TextView textViewData;
-    final DocumentReference docRef = db.collection("cities").document("SF");
+    private DocumentReference docRef;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
 
         //Initialize database
         db = FirebaseFirestore.getInstance();
+        docRef = db.collection("cities").document("BJ");
+        textViewData = findViewById(R.id.text_view_data);
 
 
         CollectionReference cities = db.collection("cities");
@@ -92,8 +96,8 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
         data5.put("regions", Arrays.asList("jingjinji", "hebei"));
         cities.document("BJ").set(data5);
 
-    /*
-        final DocumentReference docRef = db.collection("cities").document("SF");
+
+        //docRef = db.collection("cities").document("BJ");
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot,
@@ -105,13 +109,20 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
 
                 if (snapshot != null && snapshot.exists()) {
                     Log.d("TAG", "Current data: " + snapshot.getData());
+                    Object s = snapshot.get("country");
+                    Object arr = snapshot.get("regions");
+                    Log.d("TAG", "this is arr.toString: " + arr.toString());
+                    Log.d("TAG", "this is s.tostring: " + s.toString());
+                    String text = s.toString();
+                    textViewData.setText(text);
+
                 } else {
                     Log.d("TAG", "Current data: null");
                 }
             }
         });
 
-     */
+
     }
 
 
@@ -139,7 +150,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                 if(Math.abs(valueX) > MIN_DISTANCE){
                     if(x2 > x1){
                         //Right swipe
-                        loadData();
+                        //loadData();
                         Toast.makeText(this,"Right swipe", Toast.LENGTH_SHORT).show();
                     }
                     else{
@@ -152,27 +163,27 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
         return super.onTouchEvent(event);
     }
 
-    public void loadData(){
-        docRef.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.exists()){
-                            //String title = documentSnapshot.getString("country");
-                            //textViewData.setText("Country: " + title);
-                        }else{
-                            Toast.makeText(SwipingActivity.this,"Document does not exist",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
-    }
+//    public void loadData(){
+//        docRef.get()
+//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                    @SuppressLint("SetTextI18n")
+//                    @Override
+//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                        if(documentSnapshot.exists()){
+//                            //String title = documentSnapshot.getString("country");
+//                            //textViewData.setText("Country: " + title);
+//                        }else{
+//                            Toast.makeText(SwipingActivity.this,"Document does not exist",Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//
+//                    }
+//                });
+//    }
 
     @Override
     public boolean onDown(MotionEvent motionEvent) {

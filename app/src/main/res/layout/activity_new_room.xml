@@ -88,7 +88,7 @@
         app:srcCompat="@drawable/boxrectangle" />
 
     <TextView
-        android:id="@+id/have_a_room"
+        android:id="@+id/num_people"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -103,25 +103,12 @@
         app:layout_constraintTop_toTopOf="@+id/firstRectangleImage"
         app:layout_constraintVertical_bias="0.133" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="278dp"
-        android:layout_height="16dp"
-        android:layout_marginStart="200dp"
-        android:fontFamily="@font/poppins_regular"
-        android:text="@string/participants"
-        android:textColor="@color/textColor"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/firstRectangleImage"
-        app:layout_constraintEnd_toEndOf="@+id/firstRectangleImage"
-        app:layout_constraintStart_toStartOf="@+id/editTextPin"
-        app:layout_constraintTop_toTopOf="@+id/firstRectangleImage"
-        app:layout_constraintVertical_bias="0.569" />
 
     <EditText
-        android:id="@+id/editTextPin"
+        android:id="@+id/editTextParticipants"
         android:layout_width="100dp"
         android:layout_height="50dp"
+        android:layout_marginTop="13dp"
         android:layout_marginBottom="68dp"
         android:autofillHints="none"
         android:background="@drawable/rounded_text_edit"
@@ -135,6 +122,7 @@
         app:layout_constraintEnd_toEndOf="@+id/firstRectangleImage"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/firstRectangleImage"
+        app:layout_constraintTop_toBottomOf="@+id/num_people"
         tools:ignore="TextFields" />
 
     <TextView
@@ -155,16 +143,15 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="278dp"
+        android:layout_width="wrap_content"
         android:layout_height="16dp"
-        android:layout_marginStart="200dp"
         android:fontFamily="@font/poppins_regular"
         android:text="@string/participants"
         android:textColor="@color/textColor"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/firstRectangleImage"
         app:layout_constraintEnd_toEndOf="@+id/firstRectangleImage"
-        app:layout_constraintStart_toStartOf="@+id/editTextPin"
+        app:layout_constraintStart_toEndOf="@+id/editTextParticipants"
         app:layout_constraintTop_toTopOf="@+id/firstRectangleImage"
         app:layout_constraintVertical_bias="0.569" />
 
@@ -184,7 +171,7 @@
         app:layout_constraintVertical_bias="0.041" />
 
     <Button
-        android:id="@+id/createNewRoomButton"
+        android:id="@+id/createRoomButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/create_new_room_button"
