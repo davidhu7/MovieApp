@@ -24,6 +24,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SwipingActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
@@ -58,6 +60,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
         description = findViewById(R.id.description);
         year = findViewById(R.id.year);
         imageView = findViewById(R.id.imgf);
+        movieVoteCount = new ArrayList<Integer>();
 
         Intent intent = getIntent();
         roomName = intent.getStringExtra(NewRoomActivity.ROOM_TAG); //getting room name from prev activity
@@ -172,7 +175,6 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                         movieVoteCount.set(counter, movieVoteCount.get(counter) + 1);
                         if(movieVoteCount.get(counter) >= roomSize / 2) { //if the number of votes at the current movie counter becomes greater than half the room
                             roomRef.update("isEnded", true); //the search for a movie ends
-                            return super.onTouchEvent(event);
                         }
                         roomRef.update("voteCountArray", movieVoteCount.get(counter));
                         //Right swipe
@@ -186,7 +188,6 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                     else{
                         if(movieVoteCount.get(counter) >= roomSize / 2) { //if the number of votes at the current movie counter becomes greater than half the room
                             roomRef.update("isEnded", true); //the search for a movie ends
-                            return super.onTouchEvent(event);
                         }
                         //Left swipe
                         counter++;
