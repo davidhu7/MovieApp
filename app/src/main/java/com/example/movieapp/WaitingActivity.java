@@ -46,7 +46,7 @@ public class WaitingActivity extends AppCompatActivity {
                         Object b = snapshot.get("isSwiping");
                         Object n = snapshot.get("activeMembers");
                         activeM = Integer.parseInt(n.toString());
-                        Log.d("WAITING", "activeM:" + activeM + " object n: " + n.toString());
+//                        Log.d("WAITING", "activeM:" + activeM + " object n: " + n.toString());
                         if(Boolean.parseBoolean(b.toString())) {
                             startSwipingActivity();
                         }

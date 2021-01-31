@@ -37,7 +37,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
     ImageView imageView;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private static int MIN_DISTANCE = 150;
-    private float x1,x2,y1,y2;
+    private float x1, x2, y1, y2;
     private TextView title;
     private TextView description;
     private TextView year;
@@ -52,6 +52,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
     private int movieCount;
 
     public final static String WINNING_INDEX_TAG = "com.example.movieapp.WINNING_INDEX_TAG";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,11 +108,12 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                     try {
                         //check if any of the values in the array
                         Object rSize = snapshot.get("roomSize");
-                        Object voteCarr = snapshot.get("voteCountArray");
+                        //Object voteCarr = snapshot.get("voteCountArray");
 
                         roomSize = Integer.parseInt(rSize.toString());
-                        movieVoteCount = fromStringToArray(voteCarr.toString());
-                        if((boolean) snapshot.get("isEnded")) {
+                        //movieVoteCount = fromStringToArray(voteCarr.toString());
+                        movieVoteCount = (List<Long>) snapshot.get("voteCountArray");
+                        if ((boolean) snapshot.get("isEnded")) {
                             //end activity
                             db.collection("rooms").document(roomName)
                                     .delete()
@@ -179,7 +181,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
         ArrayList<Long> list = new ArrayList<>();
         s = s.substring(1, s.length() - 1);
         String[] arr = s.split(", ");
-        for(int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
             list.add(Long.parseLong(arr[i]));
         }
         return list;
@@ -193,7 +195,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
     public boolean onTouchEvent(MotionEvent event) {
         gestureDetector.onTouchEvent(event);
 
-        switch(event.getAction()){
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 x1 = event.getX();
                 y1 = event.getY();
@@ -207,29 +209,28 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                 float valueX = x2 - x1;
                 float valueY = y2 - y1;
                 Log.d("TAG", movieVoteCount.toString());
-                if(Math.abs(valueX) > MIN_DISTANCE){
-                    if(x2 > x1){
-//                        movieVoteCount.set(counter, movieVoteCount.get(counter) + 1);
-////                        if(movieVoteCount.get(counter) >= roomSize / 2) { //if the number of votes at the current movie counter becomes greater than half the room
-////                            roomRef.update("isEnded", true); //the search for a movie ends
-//                        }
-//                        roomRef.update("voteCountArray", movieVoteCount);
+                if (Math.abs(valueX) > MIN_DISTANCE) {
+                    if (x2 > x1) {
+                        movieVoteCount.set(counter, movieVoteCount.get(counter) + 1);
+                        if (movieVoteCount.get(counter) >= roomSize / 2) { //if the number of votes at the current movie counter becomes greater than half the room
+                            roomRef.update("isEnded", true); //the search for a movie ends
+                            startEndActivity();
+                        }
+                        roomRef.update("voteCountArray", movieVoteCount);
                         //Right swipe
-                        //loadData();
 
                         counter++;
                         loadData();
 
-                        Toast.makeText(this,"Right swipe", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-//                        if(movieVoteCount.get(counter) >= roomSize / 2) { //if the number of votes at the current movie counter becomes greater than half the room
-//                            roomRef.update("isEnded", true); //the search for a movie ends
-//                        }
+                        Toast.makeText(this, "Right swipe", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (movieVoteCount.get(counter) >= roomSize / 2) { //if the number of votes at the current movie counter becomes greater than half the room
+                            roomRef.update("isEnded", true); //the search for a movie ends
+                        }
                         //Left swipe
                         counter++;
                         loadData();
-                        Toast.makeText(this,"Left swipe", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Left swipe", Toast.LENGTH_SHORT).show();
                     }
                 }
         }
@@ -245,19 +246,21 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
     }
 
     public void startBackupEndActivity() {
+        Intent intent = new Intent(this, BackupEndActivity.class);
+        startActivity(intent);
 
     }
 
 
-    public void loadData(){
-        String collection = "movie"+counter;
+    public void loadData() {
+        String collection = "movie" + counter;
         docRef = db.collection("movies").document(collection);
         docRef.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.exists()){
+                        if (documentSnapshot.exists()) {
                             Object description1 = documentSnapshot.get("Description");
                             Object title1 = documentSnapshot.get("Title");
                             Object year1 = documentSnapshot.get("Year");
@@ -270,9 +273,9 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                             Object url1 = documentSnapshot.get("Image");
                             String urlO = url1.toString();
                             Glide.with(SwipingActivity.this).load(urlO).into(imageView);
-                        }else{
-                            startEndActivity();
-                            Toast.makeText(SwipingActivity.this,"Document does not exist",Toast.LENGTH_SHORT).show();
+                        } else {
+                            //startEndActivity();
+                            Toast.makeText(SwipingActivity.this, "Document does not exist", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
@@ -280,8 +283,8 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
-                  }
-               });
+                    }
+                });
     }
 
     @Override

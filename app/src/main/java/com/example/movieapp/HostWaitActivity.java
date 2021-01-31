@@ -15,7 +15,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.SetOptions;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class HostWaitActivity extends AppCompatActivity {
@@ -46,8 +49,7 @@ public class HostWaitActivity extends AppCompatActivity {
             roomName1+=" ";
         }
         roomName1+=roomName.charAt(5);
-        roomName=roomName1;
-        codeTv.setText(roomName);
+        codeTv.setText(roomName1);
 
         //setting genre number
         genreTv = findViewById(R.id.genreTv);
@@ -74,10 +76,11 @@ public class HostWaitActivity extends AppCompatActivity {
                 if (snapshot != null && snapshot.exists()) { //so we want to constantly be updating the number of activeMembers
                     try {
                         activeMembers = Integer.parseInt(snapshot.get("activeMembers").toString());
-                        peopleTv.setText(Objects.requireNonNull(snapshot.get("activeMembers")).toString());
+                        inRoomTv.setText(Objects.requireNonNull(snapshot.get("activeMembers")).toString());
+
 
                         roomSize = Integer.parseInt(snapshot.get("roomSize").toString());
-                        inRoomTv.setText(Objects.requireNonNull(snapshot.get("roomSize")).toString());
+                        peopleTv.setText(Objects.requireNonNull(snapshot.get("roomSize")).toString());
                         Log.d("TAG", "active Members: " + activeMembers + " room Size: " + roomSize);
                     } catch (Exception ex) {
                         Log.e("ERROR", ex.toString());
@@ -101,7 +104,14 @@ public class HostWaitActivity extends AppCompatActivity {
     }
     //this will begin the swiping activity
     public void startSwipeActivity() {
-        docRef.update("isSwiping", true); //we begin the swiping phase for the room
+        // Update one field, creating the document if it does not already exist.
+        Map<String, Object> data = new HashMap<>();
+        data.put("isSwiping", true);
+
+        db.collection("rooms").document(roomName)
+                .set(data, SetOptions.merge());
+        //docRef.update("isSwiping", true); //we begin the swiping phase for the room
+
         Intent intent = new Intent(this, SwipingActivity.class);
         intent.putExtra(NewRoomActivity.ROOM_TAG, roomName);
         startActivity(intent);
