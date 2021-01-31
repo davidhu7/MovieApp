@@ -4,6 +4,212 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".NewRoomActivity">
 
+    <ImageView
+        android:id="@+id/vector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="26dp"
+        android:contentDescription="@string/image_error"
+        android:scaleX="1.15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/vectorcreator4" />
+
+    <ImageView
+        android:id="@+id/backgroundRectangle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:contentDescription="@string/image_error"
+        android:scaleX="1.15"
+        android:scaleY="1.1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rectangle" />
+
+    <TextView
+        android:id="@+id/TextView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/new_room"
+        android:textColor="@color/textColor"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@+id/vector"
+        app:layout_constraintEnd_toEndOf="@+id/vector"
+
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/vector"
+        app:layout_constraintTop_toTopOf="@+id/vector"
+        app:layout_constraintVertical_bias="0.521" />
+
+
+    <ImageView
+        android:id="@+id/secondRectangleImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="148dp"
+        android:contentDescription="@string/image_error"
+
+        android:scaleX="1.2"
+        android:scaleY="1.6"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundRectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstRectangleImage"
+        app:srcCompat="@drawable/boxrectangle" />
+
+    <ImageView
+        android:id="@+id/firstRectangleImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="400dp"
+        android:contentDescription="@string/image_error"
+        android:scaleX="1.2"
+        android:scaleY="0.6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/vector"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/boxrectangle" />
+
+    <TextView
+        android:id="@+id/have_a_room"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/num_of_ppl"
+        android:textColor="@color/textColor"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/firstRectangleImage"
+        app:layout_constraintEnd_toEndOf="@+id/firstRectangleImage"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/firstRectangleImage"
+        app:layout_constraintTop_toTopOf="@+id/firstRectangleImage"
+        app:layout_constraintVertical_bias="0.133" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="278dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="200dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/participants"
+        android:textColor="@color/textColor"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/firstRectangleImage"
+        app:layout_constraintEnd_toEndOf="@+id/firstRectangleImage"
+        app:layout_constraintStart_toStartOf="@+id/editTextPin"
+        app:layout_constraintTop_toTopOf="@+id/firstRectangleImage"
+        app:layout_constraintVertical_bias="0.569" />
+
+    <EditText
+        android:id="@+id/editTextPin"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="68dp"
+        android:autofillHints="none"
+        android:background="@drawable/rounded_text_edit"
+        android:fontFamily="@font/poppins_regular"
+        android:inputType="numberSigned"
+        android:paddingHorizontal="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColor"
+        app:layout_constraintBottom_toBottomOf="@+id/firstRectangleImage"
+        app:layout_constraintEnd_toEndOf="@+id/firstRectangleImage"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/firstRectangleImage"
+        tools:ignore="TextFields" />
+
+    <TextView
+        android:id="@+id/TextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="240dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/preferences"
+        android:textColor="@color/textColor"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/secondRectangleImage"
+        app:layout_constraintEnd_toEndOf="@+id/secondRectangleImage"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/secondRectangleImage"
+        app:layout_constraintTop_toTopOf="@+id/backgroundRectangle"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="278dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="200dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/participants"
+        android:textColor="@color/textColor"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/firstRectangleImage"
+        app:layout_constraintEnd_toEndOf="@+id/firstRectangleImage"
+        app:layout_constraintStart_toStartOf="@+id/editTextPin"
+        app:layout_constraintTop_toTopOf="@+id/firstRectangleImage"
+        app:layout_constraintVertical_bias="0.569" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="281dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/filter_by_genre"
+        android:textColor="@color/textColor"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/secondRectangleImage"
+        app:layout_constraintEnd_toEndOf="@+id/secondRectangleImage"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/TextView2"
+        app:layout_constraintTop_toBottomOf="@+id/TextView2"
+        app:layout_constraintVertical_bias="0.041" />
+
+    <Button
+        android:id="@+id/createNewRoomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/create_new_room_button"
+        android:contentDescription="@string/image_error"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/create"
+        android:textColor="@color/textColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/secondRectangleImage"
+        app:layout_constraintStart_toStartOf="@+id/secondRectangleImage"
+        app:layout_constraintTop_toBottomOf="@+id/secondRectangleImage"
+        app:layout_constraintVertical_bias="0.838" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
+        android:contentDescription="@string/image_error"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundRectangle"
+        app:layout_constraintEnd_toEndOf="@+id/secondRectangleImage"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="@+id/secondRectangleImage"
+        app:layout_constraintTop_toTopOf="@+id/secondRectangleImage"
+        app:layout_constraintVertical_bias="0.237"
+        app:srcCompat="@drawable/genregroup" />
 </androidx.constraintlayout.widget.ConstraintLayout>

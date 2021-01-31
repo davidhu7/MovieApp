@@ -53,6 +53,7 @@
         app:layout_constraintTop_toTopOf="@+id/vector"
         app:layout_constraintVertical_bias="0.781" />
 
+
     <ImageView
         android:id="@+id/secondRectangleImage"
         android:layout_width="wrap_content"
@@ -60,26 +61,27 @@
         android:contentDescription="@string/image_error"
 
 
+        android:scaleX="1.2"
         app:layout_constraintBottom_toBottomOf="@+id/backgroundRectangle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.522"
+
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toBottomOf="@+id/vector"
-        app:layout_constraintVertical_bias="0.804"
+        app:layout_constraintVertical_bias="0.805"
         app:srcCompat="@drawable/boxrectangle" />
-
 
     <ImageView
         android:id="@+id/firstRectangleImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
         android:contentDescription="@string/image_error"
+        android:scaleX="1.2"
         app:layout_constraintBottom_toTopOf="@+id/secondRectangleImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/vector"
-        android:layout_marginTop="200dp"
         app:srcCompat="@drawable/boxrectangle" />
 
 
@@ -87,16 +89,15 @@
         android:id="@+id/have_a_room"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="28dp"
         android:fontFamily="@font/poppins_regular"
         android:text="@string/have_a_room"
         android:textColor="@color/textColor"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/firstRectangleImage"
-        app:layout_constraintEnd_toEndOf="@id/firstRectangleImage"
-        app:layout_constraintHorizontal_bias="0.098"
-        app:layout_constraintStart_toStartOf="@+id/firstRectangleImage"
+        app:layout_constraintEnd_toEndOf="@+id/firstRectangleImage"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/TextView1"
         app:layout_constraintTop_toTopOf="@+id/firstRectangleImage"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -112,21 +113,22 @@
         app:layout_constraintBottom_toBottomOf="@+id/firstRectangleImage"
         app:layout_constraintEnd_toEndOf="@+id/firstRectangleImage"
         app:layout_constraintHorizontal_bias="0.011"
-        app:layout_constraintStart_toStartOf="@+id/have_a_room"
+        app:layout_constraintStart_toStartOf="@+id/firstRectangleImage"
         app:layout_constraintTop_toBottomOf="@+id/have_a_room"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editTextPin"
         android:layout_width="wrap_content"
-        android:textAlignment="center"
         android:layout_height="50dp"
-        android:background="@color/colorAccent"
+        android:autofillHints="none"
+        android:background="@drawable/rounded_text_edit"
         android:fontFamily="@font/poppins_regular"
         android:hint="@string/enter_your_4_digit_pin_here"
         android:inputType="numberSigned"
+        android:paddingHorizontal="45dp"
+        android:textAlignment="center"
         android:textColor="@color/textColor"
-        android:autofillHints="none"
         android:textColorHint="@color/textColor"
         app:layout_constraintBottom_toBottomOf="@+id/firstRectangleImage"
         app:layout_constraintEnd_toEndOf="@+id/firstRectangleImage"
@@ -139,19 +141,19 @@
         android:id="@+id/TextView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:fontFamily="@font/poppins_regular"
         android:text="@string/new_room"
         android:textColor="@color/textColor"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/secondRectangleImage"
         app:layout_constraintEnd_toEndOf="@+id/secondRectangleImage"
-        app:layout_constraintHorizontal_bias="0.082"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/secondRectangleImage"
         app:layout_constraintTop_toTopOf="@+id/secondRectangleImage"
         app:layout_constraintVertical_bias="0.094" />
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="281dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_regular"
@@ -161,25 +163,25 @@
         app:layout_constraintBottom_toBottomOf="@+id/secondRectangleImage"
         app:layout_constraintEnd_toEndOf="@+id/secondRectangleImage"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/TextView2"
+        app:layout_constraintStart_toStartOf="@+id/secondRectangleImage"
         app:layout_constraintTop_toTopOf="@+id/secondRectangleImage"
-        app:layout_constraintVertical_bias="0.318" />
+        app:layout_constraintVertical_bias="0.325" />
 
     <Button
         android:id="@+id/createNewRoomButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="@string/create"
-        android:textColor="@color/textColor"
-        android:fontFamily="@font/poppins_regular"
         android:background="@drawable/create_new_room_button"
         android:contentDescription="@string/image_error"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/create"
+        android:textColor="@color/textColor"
         app:layout_constraintBottom_toBottomOf="@+id/secondRectangleImage"
+        app:layout_constraintEnd_toEndOf="@+id/secondRectangleImage"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/secondRectangleImage"
         app:layout_constraintTop_toTopOf="@+id/secondRectangleImage"
-        app:layout_constraintVertical_bias="0.871">
-    </Button>
+        app:layout_constraintVertical_bias="0.758" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
