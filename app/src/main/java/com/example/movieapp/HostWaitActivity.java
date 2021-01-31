@@ -9,12 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
@@ -36,7 +34,7 @@ public class HostWaitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_wait);
         Intent intent = getIntent();
-        roomName = intent.getStringExtra(NewRoomActivity.PARTICIPANT_COUNT_TAG);
+        roomName = intent.getStringExtra(NewRoomActivity.ROOM_TAG);
         codeTv = findViewById(R.id.codeTv);
 
         //setting up the codeTV
@@ -103,7 +101,7 @@ public class HostWaitActivity extends AppCompatActivity {
     public void startSwipeActivity() {
         docRef.update("isSwiping", true); //we begin the swiping phase for the room
         Intent intent = new Intent(this, SwipingActivity.class);
-        intent.putExtra(NewRoomActivity.PARTICIPANT_COUNT_TAG, roomName);
+        intent.putExtra(NewRoomActivity.ROOM_TAG, roomName);
         startActivity(intent);
         this.finish(); //close current activity, no longer needed
     }

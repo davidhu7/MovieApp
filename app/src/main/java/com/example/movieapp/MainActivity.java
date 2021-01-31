@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,12 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
     Button createNewRoomButton;
     EditText code;
     String roomName;
-    private FireBaseFireStore db;
-
+    private FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 startNewRoomActivity();
             }
         });
-
+        db = FirebaseFirestore.getInstance();
         code=findViewById(R.id.editTextPin);
         code.addTextChangedListener(new TextWatcher() {
             @Override
@@ -58,9 +57,25 @@ public class MainActivity extends AppCompatActivity {
                 if(roomName.length() == 6) {
                     try {
                         int n = Integer.parseInt(roomName);
+                        DocumentReference dr = db.collection("rooms").document(roomName);
+                        dr.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                startWaitingRoomActivity();
+                            }
 
 
-                    } catch (Exception e) {
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(MainActivity.this, "Room not found.", Toast.LENGTH_LONG);
+                            }
+                        });
+
+
+                    } catch (NullPointerException e) {
+                        Toast.makeText(MainActivity.this, R.string.num_input_error, Toast.LENGTH_LONG);
+                    } catch (NumberFormatException e) {
                         Toast.makeText(MainActivity.this, R.string.num_input_error, Toast.LENGTH_LONG);
                     }
                 }
@@ -70,6 +85,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void startWaitingRoomActivity() {
+        Intent intent = new Intent(this, WaitingActivity.class);
+        intent.putExtra(NewRoomActivity.ROOM_TAG, roomName);
+        startActivity(intent);
     }
 
     private void startNewRoomActivity() {

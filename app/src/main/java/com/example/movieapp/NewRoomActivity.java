@@ -1,7 +1,6 @@
 package com.example.movieapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.versionedparcelable.ParcelImpl;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +26,7 @@ public class NewRoomActivity extends AppCompatActivity {
     private String roomName;
     FirebaseFirestore db;
     CollectionReference rooms;
-    public final static String PARTICIPANT_COUNT_TAG = "com.example.movieapp.PARTICIPANT_COUNT";
+    public final static String ROOM_TAG = "com.example.movieapp.ROOM_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +80,7 @@ public class NewRoomActivity extends AppCompatActivity {
     //this should start the waiting activity for the host
     private void startWaitActivity(String roomName) {
         Intent intent = new Intent(this, HostWaitActivity.class);
-        intent.putExtra(PARTICIPANT_COUNT_TAG, roomName);
+        intent.putExtra(ROOM_TAG, roomName);
         startActivity(intent); //go to waiting room
         this.finish();
     }
