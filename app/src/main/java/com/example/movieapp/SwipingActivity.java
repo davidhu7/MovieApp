@@ -9,12 +9,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -29,6 +31,8 @@ import java.util.Map;
 public class SwipingActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
     FirebaseFirestore db;
     private GestureDetector gestureDetector;
+    ImageView imageView;
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private static int MIN_DISTANCE = 150;
     private float x1,x2,y1,y2;
     private TextView textViewData;

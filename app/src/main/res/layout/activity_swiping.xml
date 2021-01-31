@@ -10,5 +10,11 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         tools:ignore="MissingConstraints" />
+    
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id = "@+id/imgf"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
