@@ -213,8 +213,9 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                     if (x2 > x1) {
                         movieVoteCount.set(counter, movieVoteCount.get(counter) + 1);
                         if (movieVoteCount.get(counter) > roomSize / 2) { //if the number of votes at the current movie counter becomes greater than half the room
-                            roomRef.update("isEnded", true); //the search for a movie ends
                             startEndActivity();
+                            roomRef.update("isEnded", true); //the search for a movie ends
+
                         }
                         roomRef.update("voteCountArray", movieVoteCount);
                         //Right swipe
