@@ -37,8 +37,8 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
     private static int MIN_DISTANCE = 150;
     private float x1,x2,y1,y2;
     private TextView textViewData;
-    final DocumentReference docRef = db.collection("cities").document("SF");
-
+    //final DocumentReference docRef = db.collection("cities").document("SF");
+    private DocumentReference docRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +48,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
 
         //Initialize database
         db = FirebaseFirestore.getInstance();
-
+        textViewData.findViewById(R.id.text_view_data);
 
         CollectionReference cities = db.collection("cities");
 
@@ -98,7 +98,7 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
         cities.document("BJ").set(data5);
 
 
-        //docRef = db.collection("cities").document("BJ");
+        docRef = db.collection("cities").document("BJ");
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot,
@@ -107,7 +107,6 @@ public class SwipingActivity extends AppCompatActivity implements GestureDetecto
                     Log.w("TAG", "Listen failed.", e);
                     return;
                 }
-
                 if (snapshot != null && snapshot.exists()) {
                     Log.d("TAG", "Current data: " + snapshot.getData());
                     Object s = snapshot.get("country");
